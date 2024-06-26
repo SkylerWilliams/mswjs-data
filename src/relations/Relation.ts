@@ -221,7 +221,7 @@ export class Relation<
       'referenced model has no primary key set.',
     )
 
-    const referencesList = ([] as Value<any, Dictionary>[]).concat(refs)
+    const referencesList = ([] as Value<any, Dictionary>[]).concat(refs as Value<any, Dictionary>[])
     const records = this.db.getModel(this.target.modelName)
 
     log('records in the referenced model:', records.keys())

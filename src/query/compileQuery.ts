@@ -1,6 +1,6 @@
 import { debug } from 'debug'
 import { invariant } from 'outvariant'
-import { ComparatorFn, QuerySelector } from './queryTypes'
+import { ComparatorFn, QuerySelector, QuerySelectorWhere } from './queryTypes'
 import { getComparatorsForValue } from './getComparatorsForValue'
 import { isObject } from '../utils/isObject'
 
@@ -57,14 +57,14 @@ export function compileQuery<Data extends Record<string, any>>(
                * @fixme Can assume `some`? Why not `every`?
                */
               return actualValue.some((value) => {
-                return compileQuery({ where: queryChunk })(value)
+                return compileQuery({ where: queryChunk as QuerySelectorWhere<any> })(value)
               })
             }
 
             // When the actual value is a resolved relational property reference,
             // execute the current query chunk on the referenced entity.
             if (actualValue.__type || isObject(actualValue)) {
-              return compileQuery({ where: queryChunk })(actualValue)
+              return compileQuery({ where: queryChunk as QuerySelectorWhere<any> })(actualValue)
             }
 
             const comparatorSet = getComparatorsForValue(actualValue)

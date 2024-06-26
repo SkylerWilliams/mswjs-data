@@ -1,10 +1,11 @@
 import { isObject } from './isObject'
+import { Entity } from '../glossary'
 
 /**
  * Clones the given object, preserving its setters/getters.
  */
 export function spread<
-  ObjectType extends Record<string | number | symbol, unknown>,
+  ObjectType extends Record<string | number | symbol, unknown> | Entity<any, any>,
 >(source: ObjectType): ObjectType {
   const target = {} as ObjectType
   const descriptors = Object.getOwnPropertyDescriptors(source)
